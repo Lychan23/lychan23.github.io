@@ -1,1 +1,122 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lychan23's webpage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #portfolio {
+            display: none;
+        }
+        .editor {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            min-height: 200px;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Your Name Here</h1>
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section id="about">
+    <h2>About Me</h2>
+    <p>Welcome to my personal webpage! Here you'll find information about me, my projects, and how to get in touch.</p>
+</section>
+
+<section id="password-protect">
+    <h2>Enter Password to View Portfolio</h2>
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="checkPassword()">Submit</button>
+</section>
+
+<section id="portfolio">
+    <h2>Portfolio</h2>
+    <div class="editor" contenteditable="true">
+        <p>Project 1 - Description</p>
+        <p>Project 2 - Description</p>
+        <p>Project 3 - Description</p>
+    </div>
+    <button onclick="saveContent()">Save</button>
+    <p id="save-status" class="hidden">Content saved!</p>
+</section>
+
+<section id="contact">
+    <h2>Contact</h2>
+    <p>Email: Lychan235@proton.me</p>
+</section>
+
+<script>
+    function checkPassword() {
+        var password = document.getElementById("password").value;
+        var correctPassword = "jessica";  // Set your password here
+
+        if (password === correctPassword) {
+            document.getElementById("portfolio").style.display = "block";
+            document.getElementById("password-protect").style.display = "none";
+        } else {
+            alert("Incorrect password. Please try again.");
+        }
+    }
+
+    function saveContent() {
+        var editorContent = document.querySelector('.editor').innerHTML;
+        localStorage.setItem('portfolioContent', editorContent);
+        document.getElementById('save-status').classList.remove('hidden');
+        setTimeout(function() {
+            document.getElementById('save-status').classList.add('hidden');
+        }, 2000);
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var savedContent = localStorage.getItem('portfolioContent');
+        if (savedContent) {
+            document.querySelector('.editor').innerHTML = savedContent;
+        }
+    });
+</script>
+
+</body>
+</html>
